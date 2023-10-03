@@ -5,4 +5,5 @@ Setting up and running this API relies on Poetry. Install it using `pip install 
 Install depndencies with `poetry install`
 
 ## Running
-Run the API with `poetry run ./run.sh`
+When running locally, or rather, not on a RPi, use this `poetry run ./run_dev.sh`.
+For production, or when running on an RPi use ``poetry run ./run_pi.sh``
