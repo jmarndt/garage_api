@@ -1,8 +1,11 @@
+import os
+
 from fastapi import Depends, status, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 
 
-with open(".env/api_key") as key_file:
+KEY_FILE_PATH = f"{os.path.dirname(os.path.dirname(__file__))}/.env/api_key"
+with open(KEY_FILE_PATH) as key_file:
     garage_key = key_file.readline().strip()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")

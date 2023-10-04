@@ -3,15 +3,13 @@ import venv
 
 
 API_NAME = "garage"
-
-
 RUN_PATH = os.path.dirname(__file__)
 API_SERVICE_NAME = f'{API_NAME.lower()}.api'
-PY_ENV_PATH = f'{RUN_PATH}/env'
+PY_ENV_PATH = f'{RUN_PATH}/.env'
 SERVICE_FILE_PATH = f'/etc/systemd/system/{API_SERVICE_NAME}.service'
 SERVICE_FILE_CONTENTS = f"""[Unit]
 Description = {API_NAME} api service
-After = network.target
+After = network-online.target
 
 [Service]
 Type = simple
@@ -23,8 +21,9 @@ ExecStart = {PY_ENV_PATH}/bin/python {RUN_PATH}/run.py --prod
 WantedBy = multi-user.target"""
 
 
-def build_python_env():
+def build_python_env(api_key):
     venv.create(PY_ENV_PATH, with_pip=True)
+    os.system(f'echo "{api_key.strip()}" > {PY_ENV_PATH}/api_key')
     os.system(f'{PY_ENV_PATH}/bin/pip install -r {RUN_PATH}/requirements.txt')
 
 
@@ -40,6 +39,7 @@ def enable_service():
 
 
 if __name__ == '__main__':
-    build_python_env()
+    api_key = input("Enter API key to use (this can be changed later):\n")
+    build_python_env(api_key)
     create_service_file()
     enable_service()
