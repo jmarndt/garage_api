@@ -1,5 +1,6 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, Depends
 
+from app.authentication import authenticate
 from app.lights import LightActions, light_control
 from app.doors import GarageDoors, door_control
 
@@ -16,7 +17,7 @@ def health() -> dict:
     return { "garapge_api": "pong" }
 
 
-@api.get("/garage/doors", status_code=200)
+@api.get("/garage/doors", status_code=200, dependencies=[Depends(authenticate)])
 def garage_doors(door: GarageDoors) -> dict:
     """
     Activate a garage door
@@ -25,7 +26,7 @@ def garage_doors(door: GarageDoors) -> dict:
     return { "door": door }
 
 
-@api.get("/garage/lights", status_code=200)
+@api.get("/garage/lights", status_code=200, dependencies=[Depends(authenticate)])
 def garage_lights(action: LightActions) -> dict:
     """
     Turn lights on or off with query parameters
