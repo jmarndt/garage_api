@@ -8,11 +8,12 @@ app = FastAPI(title="Garage API", docs_url="/docs", redoc_url=None)
 api = APIRouter()
 
 
-@api.get("/garage/health")
-def health() -> None:
+@api.get("/garage/ping")
+def health() -> dict:
     """
     Check if API is reachable
     """
+    return { "garapge_api": "pong" }
 
 
 @api.get("/garage/doors", status_code=200)

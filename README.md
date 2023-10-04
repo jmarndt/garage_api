@@ -2,8 +2,10 @@
 Setting up and running this API relies on Poetry. Install it using `pip install poetry` or follow their instructions: https://python-poetry.org/docs/#installation
 
 ## Dependencies
-Install depndencies with `poetry install`
+First create a virtual env with `python3 -m venv .env && source .env/bin/activate`.
+Then install depndencies with `python3 -m pip install --upgrade pip && python3 -m pip install -r requirements.txt`
 
 ## Running
-When running locally, or rather, not on a RPi, use this `poetry run ./run_dev.sh`.
-For production, or when running on an RPi use ``poetry run ./run_pi.sh``
+For local development and testing, run `python3 run.py`.
+In prodcution add the `--prod` flag.
+For best results, create a system service to run this on startup. This can be done with `create_systemd_service.py`.
