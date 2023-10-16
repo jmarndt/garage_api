@@ -4,7 +4,7 @@ This API control lights and doors for the garage. It runs on a Raspbeery Pi (zer
 ## Dependencies
 Create a virtual environment with
 ```
-python3 -m venv .env && source .env/bin/activate
+python3 -m venv venv && source venv/bin/activate
 ```
 
 Install depndencies with
@@ -13,10 +13,10 @@ python3 -m pip install --upgrade pip && python3 -m pip install -r requirements.t
 ```
 
 ## Authentication
-The API is secured with a key that is contained in `.env/api_key`.
+The API is secured with a key that is contained in `venv/api_key`.
 To set or change this key run
 ```
-echo "MySecretKey" > .env/api_key
+echo "MySecretKey" > venv/api_key
 ```
 
 ## Running

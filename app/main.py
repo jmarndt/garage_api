@@ -1,8 +1,12 @@
+from io import BytesIO
+
 from fastapi import FastAPI, APIRouter, Depends
+from fastapi.responses import StreamingResponse
 
 from app.authentication import authenticate
 from app.lights import LightActions, light_control
 from app.doors import GarageDoors, door_control
+from app.camera import camera_snapshot
 
 
 app = FastAPI(title="Garage API", docs_url="/docs", redoc_url=None)
@@ -33,6 +37,15 @@ def garage_lights(action: LightActions) -> dict:
     """
     light_control(action)
     return { "lights": action }
+
+
+@api.get("/garage/cameras", dependencies=[Depends(authenticate)])
+async def garage_cameras() -> bytes:
+    """
+    Retrieve snapshot of garage camera
+    """
+    image_bytes = BytesIO(camera_snapshot())
+    return StreamingResponse(image_bytes, media_type="image/jpeg")
 
 
 app.include_router(api)
