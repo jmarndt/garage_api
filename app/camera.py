@@ -1,12 +1,13 @@
-from urllib3.response import HTTPResponse
+import os
 
+from urllib3.response import HTTPResponse
 from amcrest import AmcrestCamera
 
 
-USERNAME = 'admin'
-PASSWORD = 'Testing123'
-HOSTNAME = 'amcresteth'
-CAMERA = AmcrestCamera(HOSTNAME, 80, USERNAME, PASSWORD).camera
+CAMERA_USER = os.getenv('CAMERA_USER')
+CAMERA_PASS = os.getenv('CAMERA_PASS')
+CAMERA_HOST = os.getenv('CAMERA_HOST')
+CAMERA = AmcrestCamera(CAMERA_HOST, 80, CAMERA_USER, CAMERA_PASS).camera
 
 
 def camera_snapshot() -> bytes:

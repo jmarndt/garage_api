@@ -13,11 +13,7 @@ python3 -m pip install --upgrade pip && python3 -m pip install -r requirements.t
 ```
 
 ## Authentication
-The API is secured with a key that is contained in `venv/api_key`.
-To set or change this key run
-```
-echo "MySecretKey" > venv/api_key
-```
+The API is secured with a key. On startup it is expecting to find an environment variable called `API_KEY`. This needs to be set before run, or stored in a `.env` file (see `example.env`).
 
 ## Running
 For local development and testing, run `python3 run.py`.
