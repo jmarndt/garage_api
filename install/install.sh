@@ -45,8 +45,8 @@ create_service() {
 
 enable_service() {
     write_log "Enabling $SERVICE_NAME...."
-    systemctl daemon-reload
     systemctl enable $SERVICE_NAME
+    systemctl daemon-reload
     systemctl start $SERVICE_NAME
 }
 
