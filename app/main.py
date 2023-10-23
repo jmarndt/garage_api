@@ -1,6 +1,4 @@
-from io import BytesIO
-
-from fastapi import FastAPI, APIRouter, Depends
+from fastapi import FastAPI, APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
 
 from app.authentication import authenticate
@@ -44,7 +42,9 @@ async def garage_cameras() -> bytes:
     """
     Retrieve snapshot of garage camera
     """
-    image_bytes = BytesIO(camera_snapshot())
+    image_bytes = camera_snapshot()
+    if image_bytes is None:
+        raise HTTPException(status_code=404, detail="unable to connect to camera")
     return StreamingResponse(image_bytes, media_type="image/jpeg")
 
 
