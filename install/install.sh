@@ -33,6 +33,7 @@ install_api_files() {
     mkdir $INSTALL_DIR
     cp -r $APP_DIR $INSTALL_DIR
     cp $RUN_FILE $INSTALL_DIR
+    touch $INSTALL_DIR/.env
 }
 
 create_service() {
