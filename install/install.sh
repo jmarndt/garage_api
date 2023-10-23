@@ -21,7 +21,6 @@ write_log() {
 install_deps() {
     write_log "Installing dependencies...."
     apt install -yq python3 python3-pip python3-gpiozero
-    python3 -m pip install -r ../requirements.txt
 }
 
 install_api_files() {
@@ -35,6 +34,8 @@ install_api_files() {
     if [ ! -f $ENV_FILE ]; then
         touch $ENV_FILE
     fi
+    python3 -m venv $INSTALL_DIR/venv
+    $INSTALL_DIR/venv/bin/pip install -r ../requirements.txt
 }
 
 create_service() {
