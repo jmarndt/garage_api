@@ -1,9 +1,11 @@
 import os
 
+from dotenv import load_dotenv
 from fastapi import Depends, status, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 
 
+load_dotenv()
 API_KEY = os.getenv('API_KEY')
 
 

@@ -1,7 +1,6 @@
 import os
 import argparse
 import uvicorn
-from dotenv import load_dotenv
 
 
 API = 'app.main:app'
@@ -20,7 +19,6 @@ parser.add_argument('--prod', help='runs api in production mode', action='store_
 
 
 if __name__ == '__main__':
-    load_dotenv()
     args = parser.parse_args()
     if args.production:
         uvicorn.run(API, host=args.host, port=args.port)
