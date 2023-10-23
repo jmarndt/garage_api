@@ -8,7 +8,7 @@ fi
 LOG_FILE=/opt/garage_api.log
 INSTALL_DIR=/opt/garage_api
 APP_DIR=../app
-RUN_FILE=run_garage_api.sh
+RUN_FILE=run.py
 ENV_FILE=$INSTALL_DIR/.env
 SERVICE_NAME=garage_api.service
 SERVICE_FILE_CONTENTS=garage_api_service
@@ -20,7 +20,7 @@ write_log() {
 
 install_deps() {
     write_log "Installing dependencies...."
-    apt install -yq python3 python3-pip python3.11-venv python3-gpiozero
+    apt install -yq python3 python3-pip python3.11-venv
 }
 
 install_api_files() {
@@ -29,19 +29,16 @@ install_api_files() {
         rm -rf $INSTALL_DIR
     fi
     mkdir $INSTALL_DIR
+
     cp -r $APP_DIR $INSTALL_DIR
     cp $RUN_FILE $INSTALL_DIR
-    if [ ! -f $ENV_FILE ]; then
-        touch $ENV_FILE
-    fi
+    touch $INSTALL_DIR/.env
+
     python3 -m venv $INSTALL_DIR/venv
     $INSTALL_DIR/venv/bin/pip install -r ../requirements.txt
 }
 
 create_service() {
-    if systemctl list-unit-files "$SERVICE_NAME"; then
-        systemctl stop $SERVICE_NAME
-    fi
     write_log "Creating $SERVICE_FILE...."
     cat $SERVICE_FILE_CONTENTS > $SERVICE_FILE
 }

@@ -12,7 +12,7 @@ Install depndencies with
 python3 -m pip install --upgrade pip && python3 -m pip install -r requirements.txt
 ```
 ### Run Locally
-Run locally with `./run.sh`
+Run locally with `python3 run.py`
 
 ## Authentication
 The API is secured with a key. On startup it is expecting to find an environment variable called `API_KEY`. This needs to be set before run, or stored in a `.env` file (see `example.env`).
