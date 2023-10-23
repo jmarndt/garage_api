@@ -20,7 +20,7 @@ write_log() {
 
 install_deps() {
     write_log "Installing dependencies...."
-    apt install -yq python3 python3-pip python3-gpiozero
+    apt install -yq python3 python3-pip python3.11-venv python3-gpiozero
 }
 
 install_api_files() {
