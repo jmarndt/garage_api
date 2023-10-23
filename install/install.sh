@@ -3,6 +3,7 @@
 INSTALL_DIR=/opt/garage_api
 APP_DIR=../app
 RUN_FILE=run_garage_api.sh
+ENV_FILE=$INSTALL_DIR/.env
 SERVICE_NAME=garage_api.service
 SERVICE_FILE_CONTENTS=garage_api_service
 SERVICE_FILE=/etc/systemd/system/$SERVICE_NAME
@@ -33,7 +34,9 @@ install_api_files() {
     mkdir $INSTALL_DIR
     cp -r $APP_DIR $INSTALL_DIR
     cp $RUN_FILE $INSTALL_DIR
-    touch $INSTALL_DIR/.env
+    if [ ! -f $ENV_FILE ]; then
+        touch $ENV_FILE
+    fi
 }
 
 create_service() {
