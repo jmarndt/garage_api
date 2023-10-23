@@ -1,0 +1,12 @@
+[Unit]
+Description = Garage api service
+After = network-online.target
+
+[Service]
+Type = simple
+Restart = always
+SyslogIdentifier = garage_api
+ExecStart = /opt/garage_api/run_garage_api.sh
+
+[Install]
+WantedBy = multi-user.target
